@@ -7,8 +7,8 @@ class Bookshelf extends Component {
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{title}</h2>
                 <div className="bookshelf-books">
-                <ol className="books-grid">                        
-                    {books.map((book) => (                        
+                <ol className="books-grid">
+                    {books.map((book) => (
                     <li key={book.id}>
                         <div className="book">
                         <div className="book-top">
@@ -25,9 +25,9 @@ class Bookshelf extends Component {
                         </div>
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">{book.authors.join(', ')}</div>
-                        </div>                       
+                        </div>
                     </li>
-                    ))}                    
+                    ))}
                 </ol>
                 </div>
             </div>
