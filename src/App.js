@@ -28,12 +28,19 @@ class BooksApp extends React.Component {
     this.setState({ showSearchPage: newValue })
   }
 
+  searchBooks = (query) => {
+    BooksAPI.search(query)
+      .then((books) => {
+        return books
+      })
+  }
+
   render() {
     const { books } = this.state
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks onHideSearchPage={this.toggleSearchPage} />
+          <SearchBooks onHideSearchPage={this.toggleSearchPage} onSearchBooks={this.searchBooks}/>
         ) : (
           <ListBooks books={books} onShowSearchPage={this.toggleSearchPage} />
         )}

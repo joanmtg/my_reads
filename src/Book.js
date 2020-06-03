@@ -4,7 +4,7 @@ class Book extends Component {
     render(){
         const {book} = this.props
         const {title, authors} = book
-        const imageLink = "url(" + book.imageLinks.thumbnail + ")"
+        const imageLink = "url(" + (book.imageLinks && book.imageLinks.thumbnail) + ")"
         return (
             <div className="book">
                 <div className="book-top">
@@ -20,9 +20,8 @@ class Book extends Component {
                     </div>
                 </div>
                 <div className="book-title">{title}</div>
-                <div className="book-authors">{authors.join(', ')}</div>
+                <div className="book-authors">{authors && authors.join(', ')}</div>
             </div>
-
         )
     }
 }
