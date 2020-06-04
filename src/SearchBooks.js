@@ -5,7 +5,7 @@ class SearchBooks extends Component {
 
     state = {
         query:'',
-        books:[]
+        resultBooks:[]
     }
 
 
@@ -15,15 +15,15 @@ class SearchBooks extends Component {
         if(query.length > 0){
             BooksAPI.search(query)
                 .then((books) =>{
-                    this.setState({books:books})
+                    this.setState({resultBooks:books})
                 })
         }else{
-            this.setState({books:[]})
+            this.setState({resultBooks:[]})
         }
     }
 
     render(){
-        const {query, books} = this.state
+        const {query, resultBooks} = this.state
         const {onHideSearchPage} = this.props
         return (
             <div className="search-books">
@@ -46,9 +46,9 @@ class SearchBooks extends Component {
                 </div>
                 <div className="search-books-results">
                 <ol className="books-grid">
-                    {console.log(books)}
-                    {books && books.length > 0 &&
-                        books.map((book) => (
+                    {console.log(resultBooks)}
+                    {resultBooks && resultBooks.length > 0 &&
+                        resultBooks.map((book) => (
                         <li key={book.id}>
                             <Book book={book} />
                         </li>))
