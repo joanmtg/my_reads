@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks onHideSearchPage={this.toggleSearchPage} books={books}/>
+          <SearchBooks onHideSearchPage={this.toggleSearchPage}/>
         ) : (
           <ListBooks books={books} onShowSearchPage={this.toggleSearchPage} />
         )}
