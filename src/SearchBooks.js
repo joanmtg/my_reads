@@ -4,7 +4,8 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooks extends Component {
 
     state = {
-        query:''
+        query:'',
+        resultBooks: []
     }
 
     componentDidUpdate(prevProps, prevState){
