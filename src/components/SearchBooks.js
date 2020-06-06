@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Book from './Book'
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from '../util/BooksAPI'
+
 class SearchBooks extends Component {
 
     state = {
@@ -11,23 +12,18 @@ class SearchBooks extends Component {
     componentDidUpdate(prevProps, prevState){
         if(prevState.query !== this.state.query){
             const {query} = this.state
-            if(query.trim() !== ''){
+            if(query !== ''){
                 BooksAPI.search(query)
                     .then((books) =>{
                         if(!books.hasOwnProperty('error')){
-                            new Promise((resolve, reject)=>{
-                                let booksWithShelves = books
-                                for (let book of booksWithShelves){
-                                    BooksAPI.get(book.id)
-                                    .then((bookWithShelf) =>{
-                                        book.shelf = bookWithShelf.shelf
-                                    })
-                                }
-                                resolve(booksWithShelves)
-
-                            }).then((booksWithShelves) =>{
-                                setTimeout(() => { this.setState({resultBooks:booksWithShelves}) }, 1000)
-                            })
+                            let booksWithShelves = books
+                            for (let book of booksWithShelves){
+                                BooksAPI.get(book.id)
+                                .then((bookWithShelf) =>{
+                                    book.shelf = bookWithShelf.shelf
+                                })
+                            }
+                            setTimeout(() => { this.setState({resultBooks:booksWithShelves}) }, 1000)
 
                         }else{
                             this.setState({resultBooks:[]})
