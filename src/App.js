@@ -17,6 +17,16 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount(){
+    this.fetchBooks()
+  }
+
+  /* componentDidUpdate(prevProps, prevState){
+    if(JSON.stringify(prevState.books) !== JSON.stringify(this.state.books)){
+      this.fetchBooks()
+    }
+  } */
+
+  fetchBooks = () => {
     BooksAPI.getAll()
       .then((books) => {
         this.setState({ books:books })

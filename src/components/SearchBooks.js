@@ -14,35 +14,33 @@ class SearchBooks extends Component {
         resultBooks: []
     }
 
-    componentDidUpdate(prevProps, prevState){
-        if(prevState.query !== this.state.query){
-            const {query} = this.state
-            if(query !== ''){
-                BooksAPI.search(query)
-                    .then((books) =>{
-                        if(!books.hasOwnProperty('error')){
-                            let booksWithShelves = books
-                            for (let book of booksWithShelves){
-                                BooksAPI.get(book.id)
-                                .then((bookWithShelf) =>{
-                                    book.shelf = bookWithShelf.shelf
-                                })
-                            }
-                            setTimeout(() => { this.setState({resultBooks:booksWithShelves}) }, 1000)
-
-                        }else{
-                            this.setState({resultBooks:[]})
+    searchBooks = (query) =>{
+        if(query !== ''){
+            BooksAPI.search(query)
+                .then((books) =>{
+                    if(!books.hasOwnProperty('error')){
+                        let booksWithShelves = books
+                        for (let book of booksWithShelves){
+                            BooksAPI.get(book.id)
+                            .then((bookWithShelf) =>{
+                                book.shelf = bookWithShelf.shelf
+                            })
                         }
-                    })
-            }else{
-                this.setState({resultBooks:[]})
-            }
+                        setTimeout(() => { this.setState({resultBooks:booksWithShelves}) }, 1000)
+
+                    }else{
+                        this.setState({resultBooks:[]})
+                    }
+                })
+        }else{
+            this.setState({resultBooks:[]})
         }
     }
 
     handleChange = (event) =>{
         const query = event.target.value
-        this.setState({query: query})
+        this.setState({query:query})
+        this.searchBooks(query)
     }
 
     render(){
