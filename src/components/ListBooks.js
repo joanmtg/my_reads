@@ -6,11 +6,12 @@ class ListBooks extends Component {
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        onShowSearchPage: PropTypes.func.isRequired
+        onShowSearchPage: PropTypes.func.isRequired,
+        onUpdateBook: PropTypes.func.isRequired
     }
 
     render(){
-        const {books, onShowSearchPage} = this.props
+        const {books, onShowSearchPage, onUpdateBook} = this.props
         const currentlyReading = books.filter((book) => { return book.shelf === 'currentlyReading'})
         const wantToRead = books.filter((book) => {return book.shelf === 'wantToRead'})
         const read = books.filter((book) => {return book.shelf === 'read'})
@@ -23,9 +24,9 @@ class ListBooks extends Component {
                 </div>
                 <div className="list-books-content">
                 <div>
-                    <Bookshelf title="Currently Reading" books={currentlyReading} />
-                    <Bookshelf title="Want to Read" books={wantToRead} />
-                    <Bookshelf title="Read" books={read} />
+                    <Bookshelf title="Currently Reading" books={currentlyReading} onUpdateBook={onUpdateBook}/>
+                    <Bookshelf title="Want to Read" books={wantToRead} onUpdateBook={onUpdateBook}/>
+                    <Bookshelf title="Read" books={read} onUpdateBook={onUpdateBook}/>
                 </div>
                 </div>
                 <div className="open-search">

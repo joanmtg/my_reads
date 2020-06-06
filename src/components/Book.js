@@ -5,6 +5,12 @@ class Book extends Component {
 
     static propTypes = {
         book: PropTypes.object.isRequired,
+        onUpdateBook: PropTypes.func.isRequired
+    }
+
+    onUpdateBook = (event) => {
+        const {book, onUpdateBook} = this.props
+        onUpdateBook(book, event.target.value)
     }
 
     render(){
@@ -16,7 +22,7 @@ class Book extends Component {
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: imageLink }}></div>
                     <div className="book-shelf-changer">
-                    <select value={book.shelf}>
+                    <select value={book.shelf} onChange={this.onUpdateBook}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>

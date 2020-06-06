@@ -20,11 +20,11 @@ class BooksApp extends React.Component {
     this.fetchBooks()
   }
 
-  /* componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps, prevState){
     if(JSON.stringify(prevState.books) !== JSON.stringify(this.state.books)){
       this.fetchBooks()
     }
-  } */
+  }
 
   fetchBooks = () => {
     BooksAPI.getAll()
@@ -38,14 +38,24 @@ class BooksApp extends React.Component {
     this.setState({ showSearchPage: newValue })
   }
 
+  onUpdateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then(()=>{
+        book.shelf = shelf
+        this.setState((oldState) => ({
+          books: oldState.books.filter(b => b.id !== book.id).concat(book),
+        }));
+      })
+  }
+
   render() {
     const { books } = this.state
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks onHideSearchPage={this.toggleSearchPage}/>
+          <SearchBooks onHideSearchPage={this.toggleSearchPage} onUpdateBook={this.onUpdateBook}/>
         ) : (
-          <ListBooks books={books} onShowSearchPage={this.toggleSearchPage} />
+          <ListBooks books={books} onShowSearchPage={this.toggleSearchPage} onUpdateBook={this.onUpdateBook} />
         )}
       </div>
     )

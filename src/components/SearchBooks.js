@@ -6,12 +6,23 @@ import PropTypes from 'prop-types'
 class SearchBooks extends Component {
 
     static propTypes = {
-        onHideSearchPage: PropTypes.func.isRequired
+        onHideSearchPage: PropTypes.func.isRequired,
+        onUpdateBook: PropTypes.func.isRequired
     }
 
     state = {
         query:'',
         resultBooks: []
+    }
+
+
+
+    onUpdateBook = (book, shelf) => {
+        this.props.onUpdateBook(book, shelf)
+        book.shelf = shelf
+        this.setState((oldState) => ({
+            resultBooks: oldState.resultBooks.filter(b => b.id !== book.id).concat(book)
+        }));
     }
 
     searchBooks = (query) =>{
@@ -43,6 +54,8 @@ class SearchBooks extends Component {
         this.searchBooks(query)
     }
 
+
+
     render(){
         const {query, resultBooks} = this.state
         const {onHideSearchPage} = this.props
@@ -65,7 +78,7 @@ class SearchBooks extends Component {
                     {resultBooks && resultBooks.length > 0 &&
                         resultBooks.map((book) => (
                         <li key={book.id}>
-                            <Book book={book} />
+                            <Book book={book} onUpdateBook={this.onUpdateBook} />
                         </li>))
                     }
                 </ol>
