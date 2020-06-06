@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import Bookshelf from './Bookshelf'
+import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
+
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        onShowSearchPage: PropTypes.func.isRequired
+    }
+
     render(){
         const {books, onShowSearchPage} = this.props
         const currentlyReading = books.filter((book) => { return book.shelf === 'currentlyReading'})

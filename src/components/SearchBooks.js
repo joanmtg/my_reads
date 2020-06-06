@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import Book from './Book'
 import * as BooksAPI from '../util/BooksAPI'
+import PropTypes from 'prop-types'
 
 class SearchBooks extends Component {
+
+    static propTypes = {
+        onHideSearchPage: PropTypes.func.isRequired
+    }
 
     state = {
         query:'',
