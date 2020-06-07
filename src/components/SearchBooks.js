@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import Book from './Book'
 import * as BooksAPI from '../util/BooksAPI'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class SearchBooks extends Component {
 
     static propTypes = {
-        onHideSearchPage: PropTypes.func.isRequired,
         onUpdateBook: PropTypes.func.isRequired
     }
 
@@ -58,11 +58,14 @@ class SearchBooks extends Component {
 
     render(){
         const {query, resultBooks} = this.state
-        const {onHideSearchPage} = this.props
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                <button className="close-search" onClick={onHideSearchPage}>Close</button>
+                <Link to='/'>
+                    <div className="close-search">
+                        Close
+                    </div>
+                </Link>
                 <div className="search-books-input-wrapper">
                     <input type="text"
                            value={query}

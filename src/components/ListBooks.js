@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import Bookshelf from './Bookshelf'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class ListBooks extends Component {
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        onShowSearchPage: PropTypes.func.isRequired,
         onUpdateBook: PropTypes.func.isRequired
     }
 
     render(){
-        const {books, onShowSearchPage, onUpdateBook} = this.props
+        const {books, onUpdateBook} = this.props
         const currentlyReading = books.filter((book) => { return book.shelf === 'currentlyReading'})
         const wantToRead = books.filter((book) => {return book.shelf === 'wantToRead'})
         const read = books.filter((book) => {return book.shelf === 'read'})
@@ -29,9 +29,11 @@ class ListBooks extends Component {
                     <Bookshelf title="Read" books={read} onUpdateBook={onUpdateBook}/>
                 </div>
                 </div>
-                <div className="open-search">
-                <button onClick={onShowSearchPage}>Add a book</button>
-                </div>
+                <Link to='/search'>
+                    <div className="open-search">
+                        <button>Add a book</button>
+                    </div>
+                </Link>
             </div>
         )
     }
