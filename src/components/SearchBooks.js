@@ -29,7 +29,9 @@ class SearchBooks extends Component {
         if(query !== ''){
             BooksAPI.search(query)
                 .then((books) =>{
-                    if(!books.hasOwnProperty('error')){
+                    if(books.error){
+                        this.setState({resultBooks:[]})
+                    }else{
                         let booksWithShelves = books
                         for (let book of booksWithShelves){
                             BooksAPI.get(book.id)
@@ -38,9 +40,6 @@ class SearchBooks extends Component {
                             })
                         }
                         setTimeout(() => { this.setState({resultBooks:booksWithShelves}) }, 1000)
-
-                    }else{
-                        this.setState({resultBooks:[]})
                     }
                 })
         }else{
@@ -76,7 +75,7 @@ class SearchBooks extends Component {
                 <div className="search-books-results">
                 <ol className="books-grid">
                     {
-                    //console.log(resultBooks)
+                    console.log(resultBooks)
                     }
                     {resultBooks && resultBooks.length > 0 &&
                         resultBooks.map((book) => (
