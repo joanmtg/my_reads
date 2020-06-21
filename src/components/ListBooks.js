@@ -18,7 +18,6 @@ class ListBooks extends Component {
 
         return (
             <div className="list-books">
-            {/* {console.log(books)} */}
                 <div className="list-books-title">
                 <h1>MyReads</h1>
                 </div>
